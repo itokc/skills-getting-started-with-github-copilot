@@ -5,7 +5,8 @@ A super simple FastAPI application that allows students to view and sign up for 
 ## Features
 
 - View all available extracurricular activities
-- Sign up for activities
+- Sign up for activities and see the participant list and open spots update without refreshing
+- Unregister a participant with the trash icon next to their email
 
 ## Getting Started
 
@@ -25,12 +26,24 @@ A super simple FastAPI application that allows students to view and sign up for 
    - API documentation: http://localhost:8000/docs
    - Alternative documentation: http://localhost:8000/redoc
 
+## Running backend tests
+
+From the repository root, install the dependencies and run the pytest suite:
+
+```sh
+python -m pip install -r requirements.txt
+python -m pytest -q tests
+```
+
+The tests use FastAPI's `TestClient` with isolated activity data, so you don't need to start the server.
+
 ## API Endpoints
 
-| Method | Endpoint                                                          | Description                                                         |
-| ------ | ----------------------------------------------------------------- | ------------------------------------------------------------------- |
-| GET    | `/activities`                                                     | Get all activities with their details and current participant count |
-| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu` | Sign up for an activity                                             |
+| Method | Endpoint                                                             | Description                                                         |
+| ------ | -------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| GET    | `/activities`                                                        | Get all activities with their details and current participant count |
+| POST   | `/activities/{activity_name}/signup?email=student@mergington.edu`      | Sign up for an activity                                             |
+| DELETE | `/activities/{activity_name}/unregister?email=student@mergington.edu` | Unregister from an activity; returns 404 if the activity or registration is not found |
 
 ## Data Model
 
